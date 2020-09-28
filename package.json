@@ -1,0 +1,47 @@
+{
+  "name": "foodora-app-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "seed": "psql -U dunder_mifflin -d foodora -f ./sql-scripts/seed.foodora.sql",
+    "seed-test": "psql -U dunder_mifflin -d foodora-test -f ./sql-scripts/seed.foodora.sql",
+    "test": "mocha --require test/setup.js",
+    "dev": "nodemon src/server.js",
+    "migrate": "postgrator --config postgrator-config.js",
+    "migrate:test": "env NODE_ENV=test npm run migrate",
+    "migrate:production": "heroku run npm run migrate",
+    "start": "node src/server.js",
+    "predeploy": "npm audit",
+    "deploy": "git push heroku master",
+    "postdeploy": "npm run migrate:production"
+  },
+  "keywords": [],
+  "engines": {
+    "node": "12.16.3"
+  },
+  "author": "Renata D.",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^3.23.3",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.21.2",
+    "morgan": "^1.10.0",
+    "pg": "^7.12.0",
+    "postgrator": "^4.0.1",
+    "postgrator-cli": "^3.2.0",
+    "valid-url": "^1.0.9",
+    "winston": "^3.3.3",
+    "xss": "^1.0.8"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.1.3",
+    "nodemon": "^2.0.4",
+    "supertest": "^4.0.2"
+  }
+}
